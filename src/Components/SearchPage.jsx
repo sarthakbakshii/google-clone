@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import {useLocation} from "react-router-dom";
+import {useLocation , Link} from "react-router-dom";
 import "./SearchPage.scss"
 
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getAll } from '../Redux/action'
-
+import { getAll , sort_date_desc , sort_date_asc , sort_asc , sort_desc} from '../Redux/action';
 
 export const SearchPage = () =>{
     const search = useLocation().search;
@@ -26,14 +25,14 @@ export const SearchPage = () =>{
 
 //   ----- network call for search 
     const getResults = () =>{
-        axios.get("https://fast-reef-22226.herokuapp.com/data")
-        .then( (data) =>{
-            let temp = data.data;
-            temp = temp.filter( e =>{
-                if(e.title.indexOf(searchQuery) !== -1) return e;
-            })
-            setresults(temp);
-            dispatch( getAll(temp) )
+        axios.get(`https://fast-reef-22226.herokuapp.com/data?q=${searchQuery}`)
+        .then( ({data}) =>{
+            // let temp = data.data;
+            // temp = temp.filter( e =>{
+            //     if(e.title.indexOf(searchQuery) !== -1) return e;
+            // })
+            setresults(data);
+            dispatch( getAll(data) )
         })        
     }
     useEffect( () => {
@@ -67,19 +66,20 @@ export const SearchPage = () =>{
         
         </div>
         <div className="sortBox"> 
-            <button> Sort A-Z </button>
-            <button> Sort Z-A </button>
-            <button> Sort Date asc </button>
-            <button> Sort Date desc </button>
+            <button onClick={() => { dispatch( sort_asc(true) )}}> Sort A-Z </button>
+            <button onClick={() => { dispatch( sort_desc(true) )}}> Sort Z-A </button>
+            <button onClick={() => { dispatch( sort_date_asc(true) )}}> Sort Date asc </button>
+            <button onClick={() => { dispatch( sort_date_desc(true) )}}> Sort Date desc </button>
         </div>
+        <hr />
 
         <div id="search-result" className="search-result">
         {searchData.map( a =>{
             return (
                 <div className="detailed-result">
                     <div className="text-left">{a.url}</div>
-                    <div className="bold"> TiTle : {a.title}</div>
-                     <div> {a.description}</div>
+                    <div className="titleBox "> <Link className="title" to={""}> {a.title} </Link> </div>
+                     <div className="des"> {a.description}</div>
                       <div className="bold"> Creation Date :  {a.creation_date}</div>
                        <div className="bold"> explicit :  {a.explicit} quality : {a.quality}</div>
 
