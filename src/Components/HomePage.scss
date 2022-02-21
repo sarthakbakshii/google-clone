@@ -1,0 +1,49 @@
+.HomePage{
+    // border: 1px solid;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    // padding-bottom: 100px;
+    // align-items: center;
+    
+    .container{
+        // border: 1px solid;
+        margin-top: 110px;
+        width: 80%;
+
+        .logo{
+            font-size: 140px;
+            font-family: sans-serif;
+            font-family: bolder;
+
+            .G{ color: #3685F7 ; }
+            .o{ color: #F32D2D ;}
+            .o2 { color: #F9BA41;}
+            .g{ color : #3385F9}
+            .l{ color : #3AB05A}
+            .e{ color: #F42E31 ;}
+        }
+        .search-box{
+            width: 700px;
+            height: 40px;
+            margin-top: 20px;
+            border-radius: 30px;
+            padding-left: 30px;
+            font-size: 20px;
+            transform: translateX(20px);
+
+        }
+        .SearchIcon{
+            transform: translateX(-70px) translateY(4px);
+            height: 40px;
+            width: 70px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+
+            background-color: white ;
+            
+        }
+
+    }
+}
